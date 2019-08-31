@@ -25,6 +25,7 @@ class Game {
         return phraseArray;
     };
 
+    //when the 'start game' button is pushed, the default overlay is hidden and a random phrase is picked
     startGame(){
         $('#overlay').hide();
         this.activePhrase = this.getRandomPhrase();
@@ -37,6 +38,7 @@ class Game {
         return phrase;
     };
 
+    //checks to see if the player revealed all the letters in the active phrase.
     checkForWin(){
         let score = 0;
         $('ul li').each(function(){
@@ -51,6 +53,8 @@ class Game {
         }
     };
 
+    //replaces one of the 'liveheart' images with the 'lostheart' image if player guesses wrong
+    //if all hearts are lost then the gameOver function is called
     removeLife(){
         if (this.activePhrase.checkLetter() === false){
             $('[alt="Heart Icon"]:first').remove();
@@ -62,6 +66,7 @@ class Game {
         };
     };
 
+    //shows a 'game over' or 'you won' message if the player won or loss
     gameOver(gameWin){
         $('#overlay').show();
         if (gameWin === false){
@@ -87,6 +92,9 @@ class Game {
         }
     };
 
+    //handles the button clicks for the onscreen keyboard
+    //Checks each letter click to see if it matches and then shows letter if it does
+    //disables the letter that has already been clicked, right or wrong.
     handleInteraction(button) {
         const letterClick = $(button).text();
         if (this.activePhrase.checkLetter(letterClick) === true) {
